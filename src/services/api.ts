@@ -29,6 +29,9 @@ const api = createApi({
     }),
     getRpgGames: builder.query<Game[], void>({
       query: () => 'rpg'
+    }),
+    getGame: builder.query<Game, string>({
+      query: (id) => `jogos/${id}`
     })
   })
 })
@@ -41,7 +44,8 @@ export const {
   useGetSportGamesQuery,
   useGetSimulationGamesQuery,
   useGetFightGamesQuery,
-  useGetRpgGamesQuery
+  useGetRpgGamesQuery,
+  useGetGameQuery
 } = api
 
 export default api
