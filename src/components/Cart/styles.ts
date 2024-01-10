@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { cores } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 import { TagContainer } from '../Tag/styles'
+import fechar from '../../assets/images/fechar.png'
 
 export const Overlay = styled.div`
   position: absolute;
@@ -18,9 +19,13 @@ export const CartContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   z-index: 1;
+
+  &.is-open {
+    display: flex;
+  }
 `
 export const Sidebar = styled.aside`
   background-color: ${cores.cinza};
@@ -30,7 +35,7 @@ export const Sidebar = styled.aside`
   width: 100%;
   ${ButtonContainer} {
     max-width: 100%;
-    height: 100%;
+    width: 100%;
   }
 `
 export const Prices = styled.p`
@@ -54,6 +59,10 @@ export const Quantity = styled.p`
 `
 export const CartItem = styled.li`
   display: flex;
+  border-bottom: 1px solid ${cores.cinzaClaro};
+  padding: 8px 0;
+  position: relative;
+
   img {
     height: 80px;
     width: 80px;
@@ -75,5 +84,15 @@ export const CartItem = styled.li`
     margin-right: 8px;
     margin-top: 8px;
     margin-bottom: 16px;
+  }
+  button {
+    background-image: url(${fechar});
+    width: 16px;
+    height: 16px;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 8px;
+    right: 0;
   }
 `
