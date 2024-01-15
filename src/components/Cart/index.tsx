@@ -1,14 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { RootReducer } from '../../store'
-import { close, remove } from '../../store/reducers/cart'
-import { formataPreco } from '../ProductsList'
+import { useNavigate } from 'react-router-dom'
 
-import * as S from './styles'
 import Tag from '../Tag'
 import Button from '../Button'
 
+import { RootReducer } from '../../store'
+import { close, remove } from '../../store/reducers/cart'
+import { parseToBrl, getTotalPrice } from '../../utils'
+
+import * as S from './styles'
+
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -16,14 +20,13 @@ const Cart = () => {
     dispatch(close())
   }
 
-  const getTotalPrice = () => {
-    return items.reduce((acumulador, valorAtual) => {
-      return (acumulador += valorAtual.prices.current!)
-    }, 0)
-  }
-
   const removeItem = (id: number) => {
     dispatch(remove(id))
+  }
+
+  const goToCheckout = () => {
+    navigate('/checkout')
+    closeCart()
   }
 
   return (
@@ -38,7 +41,7 @@ const Cart = () => {
                 <h3>{item.name}</h3>
                 <Tag>{item.details.category}</Tag>
                 <Tag>{item.details.system}</Tag>
-                <span>{formataPreco(item.prices.current)}</span>
+                <span>{parseToBrl(item.prices.current)}</span>
               </div>
               <button onClick={() => removeItem(item.id)} type="button" />
             </S.CartItem>
@@ -46,10 +49,14 @@ const Cart = () => {
         </ul>
         <S.Quantity>{items.length} jogo(s) no carrinho</S.Quantity>
         <S.Prices>
-          Total de {formataPreco(getTotalPrice())}{' '}
+          Total de {parseToBrl(getTotalPrice(items))}{' '}
           <span>Em até 6x sem juros</span>
         </S.Prices>
-        <Button title="Clique aqui para continuar com a compra" type="button">
+        <Button
+          title="Clique aqui para continuar com a compra"
+          type="button"
+          onClick={goToCheckout}
+        >
           Continuar com a compra
         </Button>
       </S.Sidebar>

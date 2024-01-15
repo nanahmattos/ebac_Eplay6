@@ -3,29 +3,12 @@ import { useState } from 'react'
 import Section from '../Section'
 import { GalleryItem } from '../../pages/Home'
 
-import * as S from './styles'
-
-// import spiderman from '../../assets/images/banner-homem-aranha.png'
-// import hogwarts from '../../assets/images/fundo_hogwarts.png'
-
 import play from '../../assets/images/play.png'
 import zoom from '../../assets/images/zoom.png'
-import fechar from '../../assets/images/fechar.png'
+import closeIcon from '../../assets/images/fechar.png'
 
-// const mock: GalleryItem[] = [
-//   {
-//     type: 'image',
-//     url: spiderman
-//   },
-//   {
-//     type: 'image',
-//     url: hogwarts
-//   },
-//   {
-//     type: 'video',
-//     url: 'https://www.youtube.com/embed/uHShqAHlQ'
-//   }
-// ]
+import * as S from './styles'
+
 type Props = {
   defaultCover: string
   name: string
@@ -89,15 +72,11 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
       </Section>
 
       {/* criando uma janela pop-up (Modal) */}
-      <S.Modal className={modal.isVisible ? 'visivel' : ''}>
+      <S.Modal className={modal.isVisible ? 'is-visible' : ''}>
         <S.ModalContent className="container">
           <header>
             <h4>{name}</h4>
-            <img
-              src={fechar}
-              alt="ícone de fechar"
-              onClick={() => closeModal()}
-            />
+            <img src={closeIcon} alt="ícone de fechar" onClick={closeModal} />
           </header>
           {modal.type === 'image' ? (
             <img src={modal.url} />
@@ -105,7 +84,7 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
             <iframe frameBorder={0} src={modal.url} />
           )}
         </S.ModalContent>
-        <div onClick={() => closeModal()} className="overlay"></div>
+        <div onClick={closeModal} className="overlay"></div>
       </S.Modal>
     </>
   )

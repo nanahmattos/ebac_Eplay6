@@ -1,7 +1,5 @@
 import ProductsList from '../../components/ProductsList'
-import { Game } from '../Home'
 
-import { useEffect, useState } from 'react'
 import {
   useGetActionGamesQuery,
   useGetFightGamesQuery,
@@ -9,6 +7,7 @@ import {
   useGetRpgGamesQuery,
   useGetSportGamesQuery
 } from '../../services/api'
+
 const Categories = () => {
   const { data: actionGames } = useGetActionGamesQuery()
   const { data: fightGames } = useGetFightGamesQuery()
