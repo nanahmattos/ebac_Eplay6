@@ -22,7 +22,7 @@ const Button = ({
     return (
       <S.ButtonContainer
         variant={variant}
-        type="button"
+        type={type}
         title={title}
         onClick={onClick}
         disabled={disabled}

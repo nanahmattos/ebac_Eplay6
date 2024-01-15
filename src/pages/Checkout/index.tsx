@@ -13,7 +13,7 @@ import cartao from '../../assets/images/cartao.png'
 import { usePurchaseMutation } from '../../services/api'
 
 import { RootReducer } from '../../store'
-import { getTotalPrice, parseToBrl } from '../../utils/index'
+import { getTotalPrice, parseToBrl } from '../../utils'
 import * as S from './styles'
 
 type installments = {
@@ -155,7 +155,6 @@ const Checkout = () => {
       setInstallments(calculateInstallments())
     }
   }, [totalPrice])
-
   return (
     <div className="container">
       {isSuccess ? (
@@ -418,9 +417,12 @@ const Checkout = () => {
                             checkInputHasError('installments') ? 'error' : ''
                           }
                         >
-                          <option>1x de R$ 200,00</option>
-                          <option>2x de R$ 200,00</option>
-                          <option>3x de R$ 200,00</option>
+                          {installments.map((installment) => (
+                            <option key={installment.quantity}>
+                              {installment.quantity}x de{' '}
+                              {installment.formattedAmount}
+                            </option>
+                          ))}
                         </select>
                       </S.InputGroup>
                     </S.Row>
